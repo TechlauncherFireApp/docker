@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.1.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - my-db:/var/lib/mysql
+  api:
+    image: ghcr.io/techlauncherfireapp/backend:latest
+    environment:
+      username: 'user'
+      password: 'password'
+      host: 'db'
+      port: '3306'
+      dbname: 'db'
+    depends_on:
+      - db
+  web:
+    image: ghcr.io/techlauncherfireapp/web:latest
+    environment:
+      api: 'api'
+      port: '5000'
+    port:
+      - '80:80'
+    depends_on:
+      - api]
+volumes:
+  my-db:
