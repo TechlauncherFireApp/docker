@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.1.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - my-db:/var/lib/mysql
+  fireapp:
+    image: ghcr.io/techlauncherfireapp/backend:latest
+    environment:
+      username: 'user'
+      password: 'password'
+      host: 'db'
+      port: '3306'
+      dbname: 'db'
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+volumes:
+  my-db:
