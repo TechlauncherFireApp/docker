@@ -30,7 +30,7 @@ services:
     environment:
       api: 'api'
       port: '5000'
-    port:
+    ports:
       - '80:80'
     depends_on:
       - api
