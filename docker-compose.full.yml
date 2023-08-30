@@ -14,6 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
     volumes:
       - my-db:/var/lib/mysql
+      - ./data/sqlite_FireApp_data.sql:/docker-entrypoint-initdb.d/sqlite_FireApp_data.sql
   api:
     image: ghcr.io/techlauncherfireapp/backend:latest
     environment:
@@ -30,7 +31,7 @@ services:
     environment:
       api: 'api'
       port: '5000'
-    port:
+    ports:
       - '80:80'
     depends_on:
       - api
