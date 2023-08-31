@@ -893,8 +893,8 @@ INSERT INTO tenancy_config VALUES(104,'Microsoft','Microsoft','Dosis','','#4a90e
 CREATE TABLE IF NOT EXISTS asset_request_vehicle (
 id INTEGER,
   request_id INTEGER,
-  from TIMESTAMP,
-  to TIMESTAMP,
+  `from` TIMESTAMP,
+  `to` TIMESTAMP,
   last_update_datetime TIMESTAMP,
   created_datetime TIMESTAMP,
   asset_type_id INTEGER
