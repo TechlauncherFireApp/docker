@@ -1,31 +1,30 @@
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "role" (
-"id" INTEGER,
-  "name" TEXT,
-  "deleted" INTEGER,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP,
-  "code" TEXT
+USE db;
+CREATE TABLE IF NOT EXISTS role (
+id INTEGER,
+  name TEXT,
+  deleted INTEGER,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP,
+  code TEXT
 );
 INSERT INTO role VALUES(1,'Basic',1,'2021-04-10 10:03:32','2021-04-10 10:03:32','basic');
 INSERT INTO role VALUES(2,'Driver',0,'2021-04-10 10:03:32','2021-04-10 10:03:32','driver');
 INSERT INTO role VALUES(3,'Crew Leader',0,'2021-04-10 10:03:32','2021-04-10 10:03:32','crewLeader');
 INSERT INTO role VALUES(4,'Advanced',0,'2021-04-10 10:03:32','2021-04-10 10:03:32','advanced');
-CREATE TABLE IF NOT EXISTS "diet_requirement" (
-"diet_id" INTEGER,
-  "user_id" INTEGER,
-  "halal" INTEGER,
-  "vegetarian" INTEGER,
-  "vegan" INTEGER,
-  "nut_allergy" INTEGER,
-  "shellfish_allergy" INTEGER,
-  "gluten_intolerance" INTEGER,
-  "kosher" INTEGER,
-  "lactose_intolerance" INTEGER,
-  "diabetic" INTEGER,
-  "egg_allergy" INTEGER,
-  "other" TEXT
+CREATE TABLE IF NOT EXISTS diet_requirement (
+diet_id INTEGER,
+  user_id INTEGER,
+  halal INTEGER,
+  vegetarian INTEGER,
+  vegan INTEGER,
+  nut_allergy INTEGER,
+  shellfish_allergy INTEGER,
+  gluten_intolerance INTEGER,
+  kosher INTEGER,
+  lactose_intolerance INTEGER,
+  diabetic INTEGER,
+  egg_allergy INTEGER,
+  other TEXT
 );
 INSERT INTO diet_requirement VALUES(41,3,0,0,1,0,1,0,0,0,0,0,'No oil');
 INSERT INTO diet_requirement VALUES(43,2,0,1,0,0,0,1,0,1,1,0,'');
@@ -34,12 +33,12 @@ INSERT INTO diet_requirement VALUES(54,25,1,0,0,0,1,0,0,1,0,0,'No nuts, no dairy
 INSERT INTO diet_requirement VALUES(56,1000,0,1,0,0,0,1,0,0,0,0,'No dairy, no nuts');
 INSERT INTO diet_requirement VALUES(57,5,0,1,0,0,0,0,0,0,0,0,'');
 INSERT INTO diet_requirement VALUES(83,8,0,1,0,0,0,1,0,0,0,0,'No dairy');
-CREATE TABLE IF NOT EXISTS "asset_type_role" (
-"id" INTEGER,
-  "asset_type_id" INTEGER,
-  "seat_number" INTEGER,
-  "role_id" INTEGER,
-  "created_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS asset_type_role (
+id INTEGER,
+  asset_type_id INTEGER,
+  seat_number INTEGER,
+  role_id INTEGER,
+  created_datetime TIMESTAMP
 );
 INSERT INTO asset_type_role VALUES(1,13,1,3,'2021-04-10 16:33:22');
 INSERT INTO asset_type_role VALUES(2,13,2,4,'2021-04-10 16:33:22');
@@ -50,39 +49,39 @@ INSERT INTO asset_type_role VALUES(7,11,2,3,'2021-04-10 16:33:22');
 INSERT INTO asset_type_role VALUES(8,11,3,4,'2021-04-10 16:33:22');
 INSERT INTO asset_type_role VALUES(17,11,4,4,'2021-04-11 12:56:07');
 INSERT INTO asset_type_role VALUES(22,12,3,4,'2021-04-11 02:59:37');
-CREATE TABLE IF NOT EXISTS "user" (
-"id" INTEGER,
-  "user_type" TEXT,
-  "password" TEXT,
-  "incorrect_password_count" INTEGER,
-  "last_sign_in_datetime" TIMESTAMP,
-  "first_name" TEXT,
-  "last_name" TEXT,
-  "mobile_number" TEXT,
-  "email" TEXT,
-  "preferred_hours" INTEGER,
-  "experience_years" INTEGER,
-  "possible_roles" TEXT,
-  "qualifications" TEXT,
-  "availabilities" TEXT,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP,
-  "gender" TEXT,
-  "diet" TEXT,
-  "allergy" TEXT
+CREATE TABLE IF NOT EXISTS user (
+id INTEGER,
+  user_type TEXT,
+  password TEXT,
+  incorrect_password_count INTEGER,
+  last_sign_in_datetime TIMESTAMP,
+  first_name TEXT,
+  last_name TEXT,
+  mobile_number TEXT,
+  email TEXT,
+  preferred_hours INTEGER,
+  experience_years INTEGER,
+  possible_roles TEXT,
+  qualifications TEXT,
+  availabilities TEXT,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP,
+  gender TEXT,
+  diet TEXT,
+  allergy TEXT
 );
-INSERT INTO user VALUES(4,'ADMIN','$2y$04$gXyK765Q4c8nU.RnpZUHMuAPfTE1QhUYoPSaovmrfwlIifKunb.hm',0,NULL,'org','admin','00000000','orgadmin',25,0,'["Basic"]','[1, 2, 3]','{"Friday": [], "Monday": [[18.5, 23.5]], "Sunday": [[12, 12.5]], "Tuesday": [[5.5, 20.5]], "Saturday": [[0, 2], [3, 3.5], [9, 23]], "Thursday": [], "Wednesday": []}','2022-10-05 18:45:33','2021-03-20 14:48:31','Female','meals','00000');
-INSERT INTO user VALUES(5,'ROOT_ADMIN','$2y$12$53zgrLOxqd/P6X3nSYfiduysvWpYGHN9V2YopLUQtCBgNa33FavmS',0,NULL,'admin','mcAdmin','00000000','admin',4,0,'[]','[1, 2, 3]','{"Friday": [], "Monday": [], "Sunday": [[11, 12.5]], "Tuesday": [], "Saturday": [], "Thursday": [], "Wednesday": []}','2021-03-20 15:56:59','2021-03-20 15:56:59','','meals',NULL);
-INSERT INTO user VALUES(7,'VOLUNTEER','$2b$12$3Xun6EAPR5AlvbmZPlyPueRC3ykXetIbEcEXNUo.wYRBV/QeT6U4O',0,NULL,'dev','user','00000000','volunteer',250,0,'["Basic"]','[]','{"Friday": [[0, 3.5], [12, 13.5]], "Monday": [[0, 3.5]], "Sunday": [[0, 3.5]], "Tuesday": [[0, 3.5]], "Saturday": [[0, 3.5]], "Thursday": [[0, 3.5], [7, 8], [8.5, 9]], "Wednesday": [[0, 3.5]]}','2021-03-29 17:59:27','2021-03-29 17:59:27','','meals',NULL);
-CREATE TABLE IF NOT EXISTS "asset_request_volunteer" (
-"id" INTEGER,
-  "user_id" REAL,
-  "vehicle_id" INTEGER,
-  "status" TEXT,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP,
-  "role_id" INTEGER,
-  "qualification_id" REAL
+INSERT INTO user VALUES(4,'ADMIN','$2y$04$gXyK765Q4c8nU.RnpZUHMuAPfTE1QhUYoPSaovmrfwlIifKunb.hm',0,NULL,'org','admin','00000000','orgadmin',25,0,'[Basic]','[1, 2, 3]','{Friday: [], Monday: [[18.5, 23.5]], Sunday: [[12, 12.5]], Tuesday: [[5.5, 20.5]], Saturday: [[0, 2], [3, 3.5], [9, 23]], Thursday: [], Wednesday: []}','2022-10-05 18:45:33','2021-03-20 14:48:31','Female','meals','00000');
+INSERT INTO user VALUES(5,'ROOT_ADMIN','$2y$12$53zgrLOxqd/P6X3nSYfiduysvWpYGHN9V2YopLUQtCBgNa33FavmS',0,NULL,'admin','mcAdmin','00000000','admin',4,0,'[]','[1, 2, 3]','{Friday: [], Monday: [], Sunday: [[11, 12.5]], Tuesday: [], Saturday: [], Thursday: [], Wednesday: []}','2021-03-20 15:56:59','2021-03-20 15:56:59','','meals',NULL);
+INSERT INTO user VALUES(7,'VOLUNTEER','$2b$12$3Xun6EAPR5AlvbmZPlyPueRC3ykXetIbEcEXNUo.wYRBV/QeT6U4O',0,NULL,'dev','user','00000000','volunteer',250,0,'[Basic]','[]','{Friday: [[0, 3.5], [12, 13.5]], Monday: [[0, 3.5]], Sunday: [[0, 3.5]], Tuesday: [[0, 3.5]], Saturday: [[0, 3.5]], Thursday: [[0, 3.5], [7, 8], [8.5, 9]], Wednesday: [[0, 3.5]]}','2021-03-29 17:59:27','2021-03-29 17:59:27','','meals',NULL);
+CREATE TABLE IF NOT EXISTS asset_request_volunteer (
+id INTEGER,
+  user_id REAL,
+  vehicle_id INTEGER,
+  status TEXT,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP,
+  role_id INTEGER,
+  qualification_id REAL
 );
 INSERT INTO asset_request_volunteer VALUES(720,149.0,369,'pending','2021-09-27 08:38:28','2021-09-27 08:38:28',1,2.0);
 INSERT INTO asset_request_volunteer VALUES(721,NULL,369,NULL,'2021-09-27 08:38:28','2021-09-27 08:38:28',2,3.0);
@@ -190,145 +189,145 @@ INSERT INTO asset_request_volunteer VALUES(886,NULL,416,NULL,'2022-07-10 16:04:1
 INSERT INTO asset_request_volunteer VALUES(887,49.0,417,'confirmed','2022-09-02 09:09:40','2022-09-02 09:09:40',1,NULL);
 INSERT INTO asset_request_volunteer VALUES(888,26.0,417,'pending','2022-09-02 09:09:40','2022-09-02 09:09:40',2,NULL);
 INSERT INTO asset_request_volunteer VALUES(889,50.0,417,'pending','2022-09-02 09:09:40','2022-09-02 09:09:40',4,NULL);
-CREATE TABLE IF NOT EXISTS "question" (
-"id" INTEGER,
-  "created_time" TIMESTAMP,
-  "update_time" TIMESTAMP,
-  "question_type" TEXT,
-  "role" TEXT,
-  "description" TEXT,
-  "choice" TEXT,
-  "difficulty" INTEGER,
-  "answer" TEXT,
-  "status" INTEGER,
-  "answered_time" INTEGER,
-  "correct_time" INTEGER
+CREATE TABLE IF NOT EXISTS question (
+id INTEGER,
+  created_time TIMESTAMP,
+  update_time TIMESTAMP,
+  question_type TEXT,
+  role TEXT,
+  description TEXT,
+  choice TEXT,
+  difficulty INTEGER,
+  answer TEXT,
+  status INTEGER,
+  answered_time INTEGER,
+  correct_time INTEGER
 );
-INSERT INTO question VALUES(2,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Driver','[RdrD1S1Aa]Do you like playing games?','[{"id":"A","content":"Yes","reason":"I like playing games"},{"id":"B","content":"No","reason":"I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games."}]',1,'A',1,0,0);
-INSERT INTO question VALUES(4,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Driver','[RdrD2S1Aa]Where are you from?','[{"id":"A","content":"Australia","reason":"I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia."},{"id":"B","content":"China","reason":"I''m from China"}]',2,'A',1,0,0);
-INSERT INTO question VALUES(5,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Driver','[RdrD1S1Ab]what is your favorite color?','[{"id":"A","content":"Red","reason":"Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color."},{"id":"B","content":"Yellow","reason":"Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color."}]',1,'B',1,0,0);
-INSERT INTO question VALUES(6,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Driver','[RdrD1S1Aa]What is your specialisation?','[{"id":"A","content":"Machine Learning","reason":"I like ML"},{"id":"B","content":"Data Science","reason":"I like DS"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(7,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Driver','[RdrD1S1Aa]what is your gender?','[{"id":"A","content":"Male","reason":"Male male male"},{"id":"B","content":"Female","reason":"Female Female Female"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(8,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Driver','[RdrD1S1Aa]Do you prefer football or basketball?','[{"id":"A","content":"Football","reason":"I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball."},{"id":"B","content":"Basketball","reason":"I prefer basketball"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(9,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Driver','[RdrD1S1Aa]Which type of movie do you prefer?','[{"id":"A","content":"Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie","reason":"I prefer action movie"},{"id":"B","content":"Comedy","reason":"I prefer comedy"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(10,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Driver','[RdrD1S1Aa]Can I get HD in COMP8715?','[{"id":"A","content":"Of course","reason":"Nice Job"},{"id":"B","content":"no","reason":"Pleas try again"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(11,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Driver','[RdrD1S1Aa]What is the best programming language?','[{"id":"A","content":"Java","reason":"Congra"},{"id":"B","content":"Python","reason":"I don''t agree!"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(12,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Driver','[RdrD1S1Ab]What games do you play?','[{"id":"A","content":"Elden Ring","reason":"Congratulation"},{"id":"B","content":"Java","reason":"This is not a game"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(13,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Driver','[RdrD1S1Ab]What''s your favorite movie?','[{"id":"A","content":"The Shawshank Redemption","reason":"I like The Shawshank Redemption"},{"id":"B","content":"Braveheart","reason":"I like Braveheart"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(15,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Driver','[RdrD1S1Ab]Which pet do you prefer, dog or cat?','[{"id":"A","content":"Cat","reason":"I like cats"},{"id":"B","content":"Dog","reason":"I like dogs"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(16,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Driver','[RdrD1S1Aa]How many courses do you have?','[{"id":"A","content":"Four","reason":"I have four courses"},{"id":"B","content":"Five","reason":"I have five courses"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(17,'2022-03-25 13:05:29','2022-03-25 13:59:29','SINGLE','Driver','[Test Status]This is the first object to test the status. If this quiz appears, it means there is a bug.','[{"id":"A","content":"Bug","reason":"We have some bugs"},{"id":"B","content":"No bug","reason":"We don''t have any bug"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(18,'2022-03-25 13:05:29','2022-03-25 13:06:29','SINGLE','Driver','[Test Status]This is the second object to test the status. If this quiz appears, it means there is a bug.','[{"id":"A","content":"Bug","reason":"We have some bugs"},{"id":"B","content":"No bug","reason":"We don''t have any bug"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(19,'2022-03-24 13:05:29','2022-03-25 13:05:29','SINGLE','Driver','[Test Status]This is the third object to test the status. If this quiz appears, it means there is a bug.','[{"id":"A","content":"Bug","reason":"We have some bugs"},{"id":"B","content":"No bug","reason":"We don''t have any bug"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(20,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Basic','[RbaD1S1Aa]What is your name','[{"id":"A","content":"yes","reason":"yesyesyes"},{"id":"B","content":"no","reason":"nonono"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(21,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Basic','[RbaD1S1Aa]Do you like playing games?','[{"id":"A","content":"Yes","reason":"I like playing games"},{"id":"B","content":"No","reason":"I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games."}]',1,'A',1,0,0);
-INSERT INTO question VALUES(22,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Basic','[RbaD2S1Aa]Where are you from?','[{"id":"A","content":"Australia","reason":"I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia."},{"id":"B","content":"China","reason":"I''m from China"}]',2,'A',1,0,0);
-INSERT INTO question VALUES(23,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Basic','[RbaD1S1Ab]what is your favorite color?','[{"id":"A","content":"Red","reason":"Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color."},{"id":"B","content":"Yellow","reason":"Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color."}]',1,'B',1,0,0);
-INSERT INTO question VALUES(24,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Basic','[RbaD1S1Aa]What is your specialisation?','[{"id":"A","content":"Machine Learning","reason":"I like ML"},{"id":"B","content":"Data Science","reason":"I like DS"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(25,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Basic','[RbaD1S1Aa]what is your gender?','[{"id":"A","content":"Male","reason":"Male male male"},{"id":"B","content":"Female","reason":"Female Female Female"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(26,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Basic','[RbaD1S1Aa]Do you prefer football or basketball?','[{"id":"A","content":"Football","reason":"I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball."},{"id":"B","content":"Basketball","reason":"I prefer basketball"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(27,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Basic','[RbaD1S1Aa]Which type of movie do you prefer?','[{"id":"A","content":"Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie","reason":"I prefer action movie"},{"id":"B","content":"Comedy","reason":"I prefer comedy"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(28,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Basic','[RbaD1S1Aa]Can I get HD in COMP8715?','[{"id":"A","content":"Of course","reason":"Nice Job"},{"id":"B","content":"no","reason":"Pleas try again"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(29,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Basic','[RbaD1S1Aa]What is the best programming language?','[{"id":"A","content":"Java","reason":"Congra"},{"id":"B","content":"Python","reason":"I don''t agree!"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(30,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Basic','[RbaD1S1Ab]What games do you play?','[{"id":"A","content":"Elden Ring","reason":"Congratulation"},{"id":"B","content":"Java","reason":"This is not a game"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(31,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Basic','[RbaD1S1Ab]What''s your favorite movie?','[{"id":"A","content":"The Shawshank Redemption","reason":"I like The Shawshank Redemption"},{"id":"B","content":"Braveheart","reason":"I like Braveheart"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(32,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Basic','[RbaD1S1Ab]Which pet do you prefer, dog or cat?','[{"id":"A","content":"Cat","reason":"I like cats"},{"id":"B","content":"Dog","reason":"I like dogs"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(33,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Basic','[RbaD1S1Aa]how many courses do you have?','[{"id":"A","content":"Four","reason":"I have four courses"},{"id":"B","content":"Five","reason":"I have five courses"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(40,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Crew Leader','[RcrD1S1Aa]What is your name','[{"id":"A","content":"yes","reason":"yesyesyes"},{"id":"B","content":"no","reason":"nonono"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(41,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Crew Leader','[RcrD1S1Aa]Do you like playing games?','[{"id":"A","content":"Yes","reason":"I like playing games"},{"id":"B","content":"No","reason":"I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games."}]',1,'A',1,0,0);
-INSERT INTO question VALUES(42,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Crew Leader','[RcrD2S1Aa]Where are you from?','[{"id":"A","content":"Australia","reason":"I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia."},{"id":"B","content":"China","reason":"I''m from China"}]',2,'A',1,0,0);
-INSERT INTO question VALUES(43,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Crew Leader','[RcrD1S1Ab]what is your favorite color?','[{"id":"A","content":"Red","reason":"Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color."},{"id":"B","content":"Yellow","reason":"Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color."}]',1,'B',1,0,0);
-INSERT INTO question VALUES(44,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Crew Leader','[RcrD1S1Aa]What is your specialisation?','[{"id":"A","content":"Machine Learning","reason":"I like ML"},{"id":"B","content":"Data Science","reason":"I like DS"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(45,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Crew Leader','[RcrD1S1Aa]what is your gender?','[{"id":"A","content":"Male","reason":"Male male male"},{"id":"B","content":"Female","reason":"Female Female Female"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(46,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Crew Leader','[RcrD1S1Aa]Do you prefer football or basketball?','[{"id":"A","content":"Football","reason":"I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball."},{"id":"B","content":"Basketball","reason":"I prefer basketball"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(47,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Crew Leader','[RcrD1S1Aa]Which type of movie do you prefer?','[{"id":"A","content":"Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie","reason":"I prefer action movie"},{"id":"B","content":"Comedy","reason":"I prefer comedy"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(48,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Crew Leader','[RcrD1S1Aa]Can I get HD in COMP8715?','[{"id":"A","content":"Of course","reason":"Nice Job"},{"id":"B","content":"no","reason":"Pleas try again"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(49,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Crew Leader','[RcrD1S1Aa]What is the best programming language?','[{"id":"A","content":"Java","reason":"Congra"},{"id":"B","content":"Python","reason":"I don''t agree!"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(50,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Crew Leader','[RcrD1S1Ab]What games do you play?','[{"id":"A","content":"Elden Ring","reason":"Congratulation"},{"id":"B","content":"Java","reason":"This is not a game"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(51,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Crew Leader','[RcrD1S1Ab]What''s your favorite movie?','[{"id":"A","content":"The Shawshank Redemption","reason":"I like The Shawshank Redemption"},{"id":"B","content":"Braveheart","reason":"I like Braveheart"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(52,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Crew Leader','[RcrD1S1Ab]Which pet do you prefer, dog or cat?','[{"id":"A","content":"Cat","reason":"I like cats"},{"id":"B","content":"Dog","reason":"I like dogs"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(53,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Crew Leader','[RcrD1S1Aa]how many courses do you have?','[{"id":"A","content":"Four","reason":"I have four courses"},{"id":"B","content":"Five","reason":"I have five courses"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(60,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Advanced','[RadD1S1Aa]What is your name','[{"id":"A","content":"yes","reason":"yesyesyes"},{"id":"B","content":"no","reason":"nonono"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(61,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Advanced','[RadD1S1Aa]Do you like playing games?','[{"id":"A","content":"Yes","reason":"I like playing games"},{"id":"B","content":"No","reason":"I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games."}]',1,'A',1,0,0);
-INSERT INTO question VALUES(62,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Advanced','[RadD2S1Aa]Where are you from?','[{"id":"A","content":"Australia","reason":"I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia."},{"id":"B","content":"China","reason":"I''m from China"}]',2,'A',1,0,0);
-INSERT INTO question VALUES(63,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Advanced','[RadD1S1Ab]what is your favorite color?','[{"id":"A","content":"Red","reason":"Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color."},{"id":"B","content":"Yellow","reason":"Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color."}]',1,'B',1,0,0);
-INSERT INTO question VALUES(64,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Advanced','[RadD1S1Aa]What is your specialisation?','[{"id":"A","content":"Machine Learning","reason":"I like ML"},{"id":"B","content":"Data Science","reason":"I like DS"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(65,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Advanced','[RadD1S1Aa]what is your gender?','[{"id":"A","content":"Male","reason":"Male male male"},{"id":"B","content":"Female","reason":"Female Female Female"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(66,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Advanced','[RadD1S1Aa]Do you prefer football or basketball?','[{"id":"A","content":"Football","reason":"I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball."},{"id":"B","content":"Basketball","reason":"I prefer basketball"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(67,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Advanced','[RadD1S1Aa]Which type of movie do you prefer?','[{"id":"A","content":"Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie","reason":"I prefer action movie"},{"id":"B","content":"Comedy","reason":"I prefer comedy"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(68,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Advanced','[RadD1S1Aa]Can I get HD in COMP8715?','[{"id":"A","content":"Of course","reason":"Nice Job"},{"id":"B","content":"no","reason":"Pleas try again"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(69,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Advanced','[RadD1S1Aa]What is the best programming language?','[{"id":"A","content":"Java","reason":"Congra"},{"id":"B","content":"Python","reason":"I don''t agree!"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(70,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Advanced','[RadD1S1Ab]What games do you play?','[{"id":"A","content":"Elden Ring","reason":"Congratulation"},{"id":"B","content":"Java","reason":"This is not a game"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(71,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Advanced','[RadD1S1Ab]What''s your favorite movie?','[{"id":"A","content":"The Shawshank Redemption","reason":"I like The Shawshank Redemption"},{"id":"B","content":"Braveheart","reason":"I like Braveheart"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(72,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Advanced','[RadD1S1Ab]Which pet do you prefer, dog or cat?','[{"id":"A","content":"Cat","reason":"I like cats"},{"id":"B","content":"Dog","reason":"I like dogs"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(73,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Advanced','[RadD1S1Aa]how many courses do you have?','[{"id":"A","content":"Four","reason":"I have four courses"},{"id":"B","content":"Five","reason":"I have five courses"}]',1,'A',1,0,0);
-INSERT INTO question VALUES(83,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(84,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(85,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(86,'2022-03-28 16:44:59','2022-03-30 17:16:02','SINGLE','Volunteer','This is an updateTest','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',1,0,0);
-INSERT INTO question VALUES(87,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',0,0,0);
-INSERT INTO question VALUES(88,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',0,0,0);
-INSERT INTO question VALUES(89,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(90,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',0,0,0);
-INSERT INTO question VALUES(91,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(92,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',2,'B',1,0,0);
-INSERT INTO question VALUES(93,'2022-03-30 10:50:32','2022-03-30 14:50:21','SINGLE','Basic','This is an updateTest','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(94,'2022-03-30 10:50:32','2022-03-30 14:50:18','SINGLE','Basic','This is an updateTest','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(95,'2022-03-30 10:50:32','2022-03-30 14:50:12','SINGLE','Basic','This is an updateTest','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(96,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE',NULL,'This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(97,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(98,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(99,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(100,'2022-03-30 10:50:32','2022-03-30 16:25:13','SINGLE','Volunteer','This is an updateQuestion API Test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',0,0,0);
-INSERT INTO question VALUES(101,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(102,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(103,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(104,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(105,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(106,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(107,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(108,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(109,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(110,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(111,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(112,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(113,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(114,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(115,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(116,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(117,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(118,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(119,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(120,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(121,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(122,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(123,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(124,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(125,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(126,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(127,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(128,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(129,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(130,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(131,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(132,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(133,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(134,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(135,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',0,0,0);
-INSERT INTO question VALUES(136,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',5,'B',1,0,0);
-INSERT INTO question VALUES(137,'2022-04-10 13:01:37','2022-04-20 10:56:50','SINGLE','Volunteer','This is an https updateQuestion API Test','[{"id":"A","content":"yes","reason":"Congratulation"},{"id":"B","content":"no","reason":"nonono"}]',1,'B',0,0,0);
-CREATE TABLE IF NOT EXISTS "chatbot_input" (
-"id" INTEGER,
-  "created_time" TIMESTAMP,
-  "user_email" TEXT,
-  "content" TEXT
+INSERT INTO question VALUES(2,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Driver','[RdrD1S1Aa]Do you like playing games?','[{id:A,content:Yes,reason:I like playing games},{id:B,content:No,reason:I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.}]',1,'A',1,0,0);
+INSERT INTO question VALUES(4,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Driver','[RdrD2S1Aa]Where are you from?','[{id:A,content:Australia,reason:I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.},{id:B,content:China,reason:I''m from China}]',2,'A',1,0,0);
+INSERT INTO question VALUES(5,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Driver','[RdrD1S1Ab]what is your favorite color?','[{id:A,content:Red,reason:Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.},{id:B,content:Yellow,reason:Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.}]',1,'B',1,0,0);
+INSERT INTO question VALUES(6,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Driver','[RdrD1S1Aa]What is your specialisation?','[{id:A,content:Machine Learning,reason:I like ML},{id:B,content:Data Science,reason:I like DS}]',1,'A',1,0,0);
+INSERT INTO question VALUES(7,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Driver','[RdrD1S1Aa]what is your gender?','[{id:A,content:Male,reason:Male male male},{id:B,content:Female,reason:Female Female Female}]',1,'A',1,0,0);
+INSERT INTO question VALUES(8,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Driver','[RdrD1S1Aa]Do you prefer football or basketball?','[{id:A,content:Football,reason:I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.},{id:B,content:Basketball,reason:I prefer basketball}]',1,'A',1,0,0);
+INSERT INTO question VALUES(9,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Driver','[RdrD1S1Aa]Which type of movie do you prefer?','[{id:A,content:Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,reason:I prefer action movie},{id:B,content:Comedy,reason:I prefer comedy}]',1,'A',1,0,0);
+INSERT INTO question VALUES(10,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Driver','[RdrD1S1Aa]Can I get HD in COMP8715?','[{id:A,content:Of course,reason:Nice Job},{id:B,content:no,reason:Pleas try again}]',1,'A',1,0,0);
+INSERT INTO question VALUES(11,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Driver','[RdrD1S1Aa]What is the best programming language?','[{id:A,content:Java,reason:Congra},{id:B,content:Python,reason:I don''t agree!}]',1,'A',1,0,0);
+INSERT INTO question VALUES(12,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Driver','[RdrD1S1Ab]What games do you play?','[{id:A,content:Elden Ring,reason:Congratulation},{id:B,content:Java,reason:This is not a game}]',1,'B',1,0,0);
+INSERT INTO question VALUES(13,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Driver','[RdrD1S1Ab]What''s your favorite movie?','[{id:A,content:The Shawshank Redemption,reason:I like The Shawshank Redemption},{id:B,content:Braveheart,reason:I like Braveheart}]',1,'B',1,0,0);
+INSERT INTO question VALUES(15,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Driver','[RdrD1S1Ab]Which pet do you prefer, dog or cat?','[{id:A,content:Cat,reason:I like cats},{id:B,content:Dog,reason:I like dogs}]',1,'B',1,0,0);
+INSERT INTO question VALUES(16,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Driver','[RdrD1S1Aa]How many courses do you have?','[{id:A,content:Four,reason:I have four courses},{id:B,content:Five,reason:I have five courses}]',1,'A',1,0,0);
+INSERT INTO question VALUES(17,'2022-03-25 13:05:29','2022-03-25 13:59:29','SINGLE','Driver','[Test Status]This is the first object to test the status. If this quiz appears, it means there is a bug.','[{id:A,content:Bug,reason:We have some bugs},{id:B,content:No bug,reason:We don''t have any bug}]',1,'B',0,0,0);
+INSERT INTO question VALUES(18,'2022-03-25 13:05:29','2022-03-25 13:06:29','SINGLE','Driver','[Test Status]This is the second object to test the status. If this quiz appears, it means there is a bug.','[{id:A,content:Bug,reason:We have some bugs},{id:B,content:No bug,reason:We don''t have any bug}]',1,'B',0,0,0);
+INSERT INTO question VALUES(19,'2022-03-24 13:05:29','2022-03-25 13:05:29','SINGLE','Driver','[Test Status]This is the third object to test the status. If this quiz appears, it means there is a bug.','[{id:A,content:Bug,reason:We have some bugs},{id:B,content:No bug,reason:We don''t have any bug}]',1,'B',0,0,0);
+INSERT INTO question VALUES(20,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Basic','[RbaD1S1Aa]What is your name','[{id:A,content:yes,reason:yesyesyes},{id:B,content:no,reason:nonono}]',1,'A',1,0,0);
+INSERT INTO question VALUES(21,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Basic','[RbaD1S1Aa]Do you like playing games?','[{id:A,content:Yes,reason:I like playing games},{id:B,content:No,reason:I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.}]',1,'A',1,0,0);
+INSERT INTO question VALUES(22,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Basic','[RbaD2S1Aa]Where are you from?','[{id:A,content:Australia,reason:I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.},{id:B,content:China,reason:I''m from China}]',2,'A',1,0,0);
+INSERT INTO question VALUES(23,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Basic','[RbaD1S1Ab]what is your favorite color?','[{id:A,content:Red,reason:Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.},{id:B,content:Yellow,reason:Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.}]',1,'B',1,0,0);
+INSERT INTO question VALUES(24,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Basic','[RbaD1S1Aa]What is your specialisation?','[{id:A,content:Machine Learning,reason:I like ML},{id:B,content:Data Science,reason:I like DS}]',1,'A',1,0,0);
+INSERT INTO question VALUES(25,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Basic','[RbaD1S1Aa]what is your gender?','[{id:A,content:Male,reason:Male male male},{id:B,content:Female,reason:Female Female Female}]',1,'A',1,0,0);
+INSERT INTO question VALUES(26,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Basic','[RbaD1S1Aa]Do you prefer football or basketball?','[{id:A,content:Football,reason:I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.},{id:B,content:Basketball,reason:I prefer basketball}]',1,'A',1,0,0);
+INSERT INTO question VALUES(27,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Basic','[RbaD1S1Aa]Which type of movie do you prefer?','[{id:A,content:Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,reason:I prefer action movie},{id:B,content:Comedy,reason:I prefer comedy}]',1,'A',1,0,0);
+INSERT INTO question VALUES(28,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Basic','[RbaD1S1Aa]Can I get HD in COMP8715?','[{id:A,content:Of course,reason:Nice Job},{id:B,content:no,reason:Pleas try again}]',1,'A',1,0,0);
+INSERT INTO question VALUES(29,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Basic','[RbaD1S1Aa]What is the best programming language?','[{id:A,content:Java,reason:Congra},{id:B,content:Python,reason:I don''t agree!}]',1,'A',1,0,0);
+INSERT INTO question VALUES(30,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Basic','[RbaD1S1Ab]What games do you play?','[{id:A,content:Elden Ring,reason:Congratulation},{id:B,content:Java,reason:This is not a game}]',1,'B',1,0,0);
+INSERT INTO question VALUES(31,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Basic','[RbaD1S1Ab]What''s your favorite movie?','[{id:A,content:The Shawshank Redemption,reason:I like The Shawshank Redemption},{id:B,content:Braveheart,reason:I like Braveheart}]',1,'B',1,0,0);
+INSERT INTO question VALUES(32,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Basic','[RbaD1S1Ab]Which pet do you prefer, dog or cat?','[{id:A,content:Cat,reason:I like cats},{id:B,content:Dog,reason:I like dogs}]',1,'B',1,0,0);
+INSERT INTO question VALUES(33,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Basic','[RbaD1S1Aa]how many courses do you have?','[{id:A,content:Four,reason:I have four courses},{id:B,content:Five,reason:I have five courses}]',1,'A',1,0,0);
+INSERT INTO question VALUES(40,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Crew Leader','[RcrD1S1Aa]What is your name','[{id:A,content:yes,reason:yesyesyes},{id:B,content:no,reason:nonono}]',1,'A',1,0,0);
+INSERT INTO question VALUES(41,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Crew Leader','[RcrD1S1Aa]Do you like playing games?','[{id:A,content:Yes,reason:I like playing games},{id:B,content:No,reason:I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.}]',1,'A',1,0,0);
+INSERT INTO question VALUES(42,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Crew Leader','[RcrD2S1Aa]Where are you from?','[{id:A,content:Australia,reason:I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.},{id:B,content:China,reason:I''m from China}]',2,'A',1,0,0);
+INSERT INTO question VALUES(43,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Crew Leader','[RcrD1S1Ab]what is your favorite color?','[{id:A,content:Red,reason:Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.},{id:B,content:Yellow,reason:Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.}]',1,'B',1,0,0);
+INSERT INTO question VALUES(44,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Crew Leader','[RcrD1S1Aa]What is your specialisation?','[{id:A,content:Machine Learning,reason:I like ML},{id:B,content:Data Science,reason:I like DS}]',1,'A',1,0,0);
+INSERT INTO question VALUES(45,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Crew Leader','[RcrD1S1Aa]what is your gender?','[{id:A,content:Male,reason:Male male male},{id:B,content:Female,reason:Female Female Female}]',1,'A',1,0,0);
+INSERT INTO question VALUES(46,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Crew Leader','[RcrD1S1Aa]Do you prefer football or basketball?','[{id:A,content:Football,reason:I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.},{id:B,content:Basketball,reason:I prefer basketball}]',1,'A',1,0,0);
+INSERT INTO question VALUES(47,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Crew Leader','[RcrD1S1Aa]Which type of movie do you prefer?','[{id:A,content:Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,reason:I prefer action movie},{id:B,content:Comedy,reason:I prefer comedy}]',1,'A',1,0,0);
+INSERT INTO question VALUES(48,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Crew Leader','[RcrD1S1Aa]Can I get HD in COMP8715?','[{id:A,content:Of course,reason:Nice Job},{id:B,content:no,reason:Pleas try again}]',1,'A',1,0,0);
+INSERT INTO question VALUES(49,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Crew Leader','[RcrD1S1Aa]What is the best programming language?','[{id:A,content:Java,reason:Congra},{id:B,content:Python,reason:I don''t agree!}]',1,'A',1,0,0);
+INSERT INTO question VALUES(50,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Crew Leader','[RcrD1S1Ab]What games do you play?','[{id:A,content:Elden Ring,reason:Congratulation},{id:B,content:Java,reason:This is not a game}]',1,'B',1,0,0);
+INSERT INTO question VALUES(51,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Crew Leader','[RcrD1S1Ab]What''s your favorite movie?','[{id:A,content:The Shawshank Redemption,reason:I like The Shawshank Redemption},{id:B,content:Braveheart,reason:I like Braveheart}]',1,'B',1,0,0);
+INSERT INTO question VALUES(52,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Crew Leader','[RcrD1S1Ab]Which pet do you prefer, dog or cat?','[{id:A,content:Cat,reason:I like cats},{id:B,content:Dog,reason:I like dogs}]',1,'B',1,0,0);
+INSERT INTO question VALUES(53,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Crew Leader','[RcrD1S1Aa]how many courses do you have?','[{id:A,content:Four,reason:I have four courses},{id:B,content:Five,reason:I have five courses}]',1,'A',1,0,0);
+INSERT INTO question VALUES(60,'2022-03-26 16:32:59','2022-03-26 16:32:59','SINGLE','Advanced','[RadD1S1Aa]What is your name','[{id:A,content:yes,reason:yesyesyes},{id:B,content:no,reason:nonono}]',1,'A',1,0,0);
+INSERT INTO question VALUES(61,'2022-03-22 11:50:52','2022-03-22 11:50:52','SINGLE','Advanced','[RadD1S1Aa]Do you like playing games?','[{id:A,content:Yes,reason:I like playing games},{id:B,content:No,reason:I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.I don''t like playing games.}]',1,'A',1,0,0);
+INSERT INTO question VALUES(62,'2022-03-22 21:22:05','2022-03-22 21:58:20','SINGLE','Advanced','[RadD2S1Aa]Where are you from?','[{id:A,content:Australia,reason:I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.I''m from Australia.},{id:B,content:China,reason:I''m from China}]',2,'A',1,0,0);
+INSERT INTO question VALUES(63,'2022-03-22 21:57:34','2022-03-22 21:59:13','SINGLE','Advanced','[RadD1S1Ab]what is your favorite color?','[{id:A,content:Red,reason:Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.Red is my favorite color.},{id:B,content:Yellow,reason:Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.Yellow is my favorite color.}]',1,'B',1,0,0);
+INSERT INTO question VALUES(64,'2022-03-22 22:00:59','2022-03-22 22:02:28','SINGLE','Advanced','[RadD1S1Aa]What is your specialisation?','[{id:A,content:Machine Learning,reason:I like ML},{id:B,content:Data Science,reason:I like DS}]',1,'A',1,0,0);
+INSERT INTO question VALUES(65,'2022-03-22 22:49:29','2022-03-22 22:49:29','SINGLE','Advanced','[RadD1S1Aa]what is your gender?','[{id:A,content:Male,reason:Male male male},{id:B,content:Female,reason:Female Female Female}]',1,'A',1,0,0);
+INSERT INTO question VALUES(66,'2022-03-22 22:51:20','2022-03-22 22:51:20','SINGLE','Advanced','[RadD1S1Aa]Do you prefer football or basketball?','[{id:A,content:Football,reason:I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.I prefer football than basketball.},{id:B,content:Basketball,reason:I prefer basketball}]',1,'A',1,0,0);
+INSERT INTO question VALUES(67,'2022-03-22 22:55:03','2022-03-22 22:55:03','SINGLE','Advanced','[RadD1S1Aa]Which type of movie do you prefer?','[{id:A,content:Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,Action Movie,reason:I prefer action movie},{id:B,content:Comedy,reason:I prefer comedy}]',1,'A',1,0,0);
+INSERT INTO question VALUES(68,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Advanced','[RadD1S1Aa]Can I get HD in COMP8715?','[{id:A,content:Of course,reason:Nice Job},{id:B,content:no,reason:Pleas try again}]',1,'A',1,0,0);
+INSERT INTO question VALUES(69,'2022-03-23 11:50:39','2022-03-23 11:50:39','SINGLE','Advanced','[RadD1S1Aa]What is the best programming language?','[{id:A,content:Java,reason:Congra},{id:B,content:Python,reason:I don''t agree!}]',1,'A',1,0,0);
+INSERT INTO question VALUES(70,'2022-03-23 13:05:29','2022-03-23 13:10:11','SINGLE','Advanced','[RadD1S1Ab]What games do you play?','[{id:A,content:Elden Ring,reason:Congratulation},{id:B,content:Java,reason:This is not a game}]',1,'B',1,0,0);
+INSERT INTO question VALUES(71,'2022-03-23 13:05:29','2022-03-23 13:07:29','SINGLE','Advanced','[RadD1S1Ab]What''s your favorite movie?','[{id:A,content:The Shawshank Redemption,reason:I like The Shawshank Redemption},{id:B,content:Braveheart,reason:I like Braveheart}]',1,'B',1,0,0);
+INSERT INTO question VALUES(72,'2022-03-23 13:09:29','2022-03-25 13:05:29','SINGLE','Advanced','[RadD1S1Ab]Which pet do you prefer, dog or cat?','[{id:A,content:Cat,reason:I like cats},{id:B,content:Dog,reason:I like dogs}]',1,'B',1,0,0);
+INSERT INTO question VALUES(73,'2022-03-25 13:05:29','2022-03-25 14:05:29','SINGLE','Advanced','[RadD1S1Aa]how many courses do you have?','[{id:A,content:Four,reason:I have four courses},{id:B,content:Five,reason:I have five courses}]',1,'A',1,0,0);
+INSERT INTO question VALUES(83,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(84,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(85,'2022-03-28 16:44:59','2022-03-28 16:44:59','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(86,'2022-03-28 16:44:59','2022-03-30 17:16:02','SINGLE','Volunteer','This is an updateTest','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',1,0,0);
+INSERT INTO question VALUES(87,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',0,0,0);
+INSERT INTO question VALUES(88,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',0,0,0);
+INSERT INTO question VALUES(89,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(90,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',0,0,0);
+INSERT INTO question VALUES(91,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(92,'2022-03-29 11:20:34','2022-03-29 11:20:34','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',2,'B',1,0,0);
+INSERT INTO question VALUES(93,'2022-03-30 10:50:32','2022-03-30 14:50:21','SINGLE','Basic','This is an updateTest','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',0,0,0);
+INSERT INTO question VALUES(94,'2022-03-30 10:50:32','2022-03-30 14:50:18','SINGLE','Basic','This is an updateTest','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',0,0,0);
+INSERT INTO question VALUES(95,'2022-03-30 10:50:32','2022-03-30 14:50:12','SINGLE','Basic','This is an updateTest','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',0,0,0);
+INSERT INTO question VALUES(96,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE',NULL,'This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(97,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(98,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(99,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(100,'2022-03-30 10:50:32','2022-03-30 16:25:13','SINGLE','Volunteer','This is an updateQuestion API Test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',0,0,0);
+INSERT INTO question VALUES(101,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(102,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(103,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(104,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(105,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(106,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(107,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(108,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(109,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(110,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(111,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(112,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(113,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(114,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(115,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(116,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(117,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(118,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(119,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(120,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(121,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(122,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(123,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(124,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(125,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(126,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(127,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(128,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(129,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(130,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(131,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(132,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(133,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(134,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(135,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',0,0,0);
+INSERT INTO question VALUES(136,'2022-03-30 10:50:32','2022-03-30 10:50:32','SINGLE','Basic','This is a CreatNewQuestionAPI test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',5,'B',1,0,0);
+INSERT INTO question VALUES(137,'2022-04-10 13:01:37','2022-04-20 10:56:50','SINGLE','Volunteer','This is an https updateQuestion API Test','[{id:A,content:yes,reason:Congratulation},{id:B,content:no,reason:nonono}]',1,'B',0,0,0);
+CREATE TABLE IF NOT EXISTS chatbot_input (
+id INTEGER,
+  created_time TIMESTAMP,
+  user_email TEXT,
+  content TEXT
 );
-CREATE TABLE IF NOT EXISTS "qualification" (
-"id" INTEGER,
-  "name" TEXT,
-  "deleted" INTEGER,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS qualification (
+id INTEGER,
+  name TEXT,
+  deleted INTEGER,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP
 );
 INSERT INTO qualification VALUES(1,'Advanced Firefighting Qualification',0,'2021-04-10 10:03:32','2021-04-10 10:03:32');
 INSERT INTO qualification VALUES(2,'Advanced Pumping Skills',0,'2021-04-10 10:03:32','2021-04-10 10:03:32');
@@ -336,13 +335,13 @@ INSERT INTO qualification VALUES(3,'Crew Leader Course',0,'2021-04-10 10:03:32',
 INSERT INTO qualification VALUES(4,'Heavy Rigid Vehicle License',0,'2021-04-10 10:03:32','2021-04-10 10:03:32');
 INSERT INTO qualification VALUES(5,'Tanker Driving training',0,'2021-04-10 10:03:32','2021-04-10 10:03:32');
 INSERT INTO qualification VALUES(6,'Urgent Duty Driving Training',0,'2021-04-10 10:03:32','2021-04-10 10:03:32');
-CREATE TABLE IF NOT EXISTS "asset_request" (
-"id" INTEGER,
-  "user_id" INTEGER,
-  "title" TEXT,
-  "status" TEXT,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS asset_request (
+id INTEGER,
+  user_id INTEGER,
+  title TEXT,
+  status TEXT,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP
 );
 INSERT INTO asset_request VALUES(322,4,'Medium Tanker2','waiting','2021-09-27 08:38:28','2021-09-27 08:38:28');
 INSERT INTO asset_request VALUES(323,4,'Large Truck this weekend','waiting','2021-09-27 08:38:28','2021-09-27 08:38:28');
@@ -370,15 +369,15 @@ INSERT INTO asset_request VALUES(360,4,'testSupervisorAPI','waiting','2022-07-10
 INSERT INTO asset_request VALUES(361,4,'optimiastion-tute-08-2022','waiting','2022-07-10 16:04:11','2022-07-10 16:04:11');
 INSERT INTO asset_request VALUES(362,4,'testHang','waiting','2022-09-02 09:09:40','2022-09-02 09:09:40');
 INSERT INTO asset_request VALUES(363,4,'Test','waiting','2023-05-07 06:35:11','2023-05-07 06:35:11');
-CREATE TABLE IF NOT EXISTS "alembic_version" (
-"version_num" TEXT
+CREATE TABLE IF NOT EXISTS alembic_version (
+version_num TEXT
 );
 INSERT INTO alembic_version VALUES('5500788ed080');
-CREATE TABLE IF NOT EXISTS "user_role" (
-"id" INTEGER,
-  "user_id" INTEGER,
-  "role_id" INTEGER,
-  "created_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS user_role (
+id INTEGER,
+  user_id INTEGER,
+  role_id INTEGER,
+  created_datetime TIMESTAMP
 );
 INSERT INTO user_role VALUES(33,5,1,'2021-04-10 11:07:56');
 INSERT INTO user_role VALUES(34,7,1,'2021-04-10 11:07:56');
@@ -409,14 +408,14 @@ INSERT INTO user_role VALUES(117,26,3,'2022-05-02 08:55:47');
 INSERT INTO user_role VALUES(118,26,4,'2022-05-02 08:55:47');
 INSERT INTO user_role VALUES(122,4,1,'2022-05-09 13:54:56');
 INSERT INTO user_role VALUES(124,5,3,'2023-05-07 06:35:11');
-CREATE TABLE IF NOT EXISTS "unavailability_time" (
-"eventId" INTEGER,
-  "userId" INTEGER,
-  "title" TEXT,
-  "periodicity" INTEGER,
-  "start" TIMESTAMP,
-  "end" TIMESTAMP,
-  "status" INTEGER
+CREATE TABLE IF NOT EXISTS unavailability_time (
+eventId INTEGER,
+  userId INTEGER,
+  title TEXT,
+  periodicity INTEGER,
+  start TIMESTAMP,
+  end TIMESTAMP,
+  status INTEGER
 );
 INSERT INTO unavailability_time VALUES(1,49,'study',1,'2022-05-06 11:28:00','2022-05-06 20:00:00',0);
 INSERT INTO unavailability_time VALUES(2,49,'test',2,'2022-05-01 11:28:00','2022-05-01 20:00:00',0);
@@ -875,30 +874,30 @@ INSERT INTO unavailability_time VALUES(455,74,'Test 2',0,'2022-10-11 00:00:00','
 INSERT INTO unavailability_time VALUES(456,74,'Test 3',0,'2022-10-11 01:30:00','2022-10-11 04:30:00',1);
 INSERT INTO unavailability_time VALUES(457,74,'Bug Catching',3,'2022-10-11 00:00:00','2022-10-11 23:59:00',0);
 INSERT INTO unavailability_time VALUES(458,74,'Rat Catching',3,'2022-10-11 00:00:00','2022-10-11 23:59:00',1);
-CREATE TABLE IF NOT EXISTS "tenancy_config" (
-"id" INTEGER,
-  "name" TEXT,
-  "title" TEXT,
-  "font" TEXT,
-  "logo" TEXT,
-  "navbar_colour" TEXT,
-  "background_colour" TEXT,
-  "deleted" INTEGER,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP,
-  "logo_mimetype" TEXT,
-  "logo_name" TEXT
+CREATE TABLE IF NOT EXISTS tenancy_config (
+id INTEGER,
+  name TEXT,
+  title TEXT,
+  font TEXT,
+  logo TEXT,
+  navbar_colour TEXT,
+  background_colour TEXT,
+  deleted INTEGER,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP,
+  logo_mimetype TEXT,
+  logo_name TEXT
 );
 INSERT INTO tenancy_config VALUES(32,'Default','FireApp','Bebas Neue','','#eb2424','',1,'2021-10-11 11:43:44','2021-10-11 11:43:44','','');
 INSERT INTO tenancy_config VALUES(104,'Microsoft','Microsoft','Dosis','','#4a90e2','',1,'2021-10-18 18:07:28','2021-10-18 18:07:28','image/png','download.png');
-CREATE TABLE IF NOT EXISTS "asset_request_vehicle" (
-"id" INTEGER,
-  "request_id" INTEGER,
-  "from" TIMESTAMP,
-  "to" TIMESTAMP,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP,
-  "asset_type_id" INTEGER
+CREATE TABLE IF NOT EXISTS asset_request_vehicle (
+id INTEGER,
+  request_id INTEGER,
+  from TIMESTAMP,
+  to TIMESTAMP,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP,
+  asset_type_id INTEGER
 );
 INSERT INTO asset_request_vehicle VALUES(369,322,'2021-10-12 17:02:36','2021-10-14 17:02:36','2021-09-27 08:38:28','2021-09-27 08:38:28',12);
 INSERT INTO asset_request_vehicle VALUES(370,323,'2021-10-08 17:03:09','2021-10-09 17:03:09','2021-09-27 08:38:28','2021-09-27 08:38:28',11);
@@ -933,22 +932,21 @@ INSERT INTO asset_request_vehicle VALUES(416,361,'2022-09-17 20:00:00','2022-09-
 INSERT INTO asset_request_vehicle VALUES(417,362,'2022-09-30 13:00:00','2022-10-01 13:30:00','2022-09-02 09:09:40','2022-09-02 09:09:40',12);
 INSERT INTO asset_request_vehicle VALUES(418,322,'2022-09-27 13:35:02','2022-10-03 13:35:02','2022-09-17 07:23:01','2022-09-17 07:23:01',13);
 INSERT INTO asset_request_vehicle VALUES(419,363,'2023-06-30 19:54:06','2023-07-01 19:54:06','2023-05-07 06:35:11','2023-05-07 06:35:11',11);
-CREATE TABLE IF NOT EXISTS "asset_type" (
-"id" INTEGER,
-  "code" TEXT,
-  "name" TEXT,
-  "deleted" INTEGER,
-  "last_update_datetime" TIMESTAMP,
-  "created_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS asset_type (
+id INTEGER,
+  code TEXT,
+  name TEXT,
+  deleted INTEGER,
+  last_update_datetime TIMESTAMP,
+  created_datetime TIMESTAMP
 );
 INSERT INTO asset_type VALUES(11,'heavyTanker','Heavy Tanker',0,'2021-04-04 10:22:41','2021-04-04 10:22:41');
 INSERT INTO asset_type VALUES(12,'mediumTanker','Medium Tanker',0,'2021-04-04 10:22:41','2021-04-04 10:22:41');
 INSERT INTO asset_type VALUES(13,'lightUnit','Light Unit',0,'2021-04-04 10:22:41','2021-04-04 10:22:41');
-CREATE TABLE IF NOT EXISTS "password_verify" (
-"id" INTEGER,
-  "email" TEXT,
-  "code" TEXT,
-  "created_datetime" TIMESTAMP,
-  "expired_datetime" TIMESTAMP
+CREATE TABLE IF NOT EXISTS password_verify (
+id INTEGER,
+  email TEXT,
+  code TEXT,
+  created_datetime TIMESTAMP,
+  expired_datetime TIMESTAMP
 );
-COMMIT;
