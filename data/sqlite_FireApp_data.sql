@@ -396,13 +396,14 @@ DROP TABLE IF EXISTS `unavailability_time`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `unavailability_time` (
-  `eventId` smallint(6) DEFAULT NULL,
+  `eventId` smallint(6) NOT NULL AUTO_INCREMENT,
   `userId` tinyint(4) DEFAULT NULL,
   `title` varchar(20) DEFAULT NULL,
   `periodicity` tinyint(4) DEFAULT NULL,
   `start` DATETIME DEFAULT NULL,
   `end` DATETIME DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL
+  `status` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY(eventId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
