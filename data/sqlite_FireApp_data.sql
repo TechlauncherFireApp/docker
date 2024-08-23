@@ -514,7 +514,12 @@ CREATE TABLE `shift_request` (
 
 LOCK TABLES `shift_request` WRITE;
 /*!40000 ALTER TABLE `shift_request` DISABLE KEYS */;
-INSERT INTO `shift_request` VALUES();
+INSERT INTO shift_request (user_id, title, from, to, status, last_update_datetime, created_datetime)
+VALUES
+(5, 'Morning Shift', '2024-08-24 08:00:00', '2024-08-24 12:00:00', 'waiting', '2024-08-23 10:00:00', '2024-08-23 09:00:00'),
+(5, 'Afternoon Shift', '2024-08-24 13:00:00', '2024-08-24 17:00:00', 'waiting', '2024-08-23 10:30:00', '2024-08-23 09:30:00'),
+(5, 'Night Shift', '2024-08-24 18:00:00', '2024-08-24 22:00:00', 'un-submitted', '2024-08-23 11:00:00', '2024-08-23 10:00:00'),
+(5, 'Late Night Shift', '2024-08-24 23:00:00', '2024-08-25 03:00:00', 'waiting', '2024-08-23 11:30:00', '2024-08-23 10:30:00');
 /*!40000 ALTER TABLE `shift_request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -544,7 +549,11 @@ CREATE TABLE `shift_request_volunteer` (
 
 LOCK TABLES `shift_request_volunteer` WRITE;
 /*!40000 ALTER TABLE `shift_request_volunteer` DISABLE KEYS */;
-INSERT INTO `shift_request_volunteer` VALUES();
+INSERT INTO shift_request_volunteer (user_id, request_id, status, last_update_datetime, created_datetime)
+VALUES
+(6, 1, 'pending', '2024-08-23 12:00:00', '2024-08-23 11:00:00'),
+(7, 1, 'pending', '2024-08-23 12:30:00', '2024-08-23 11:30:00'),
+(8, 2, 'confirmed', '2024-08-23 13:00:00', '2024-08-23 12:00:00');
 /*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
