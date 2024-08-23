@@ -492,9 +492,11 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `shift_request`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shift_request` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `user_id` tinyint(4) NOT NULL,
   `title` VARCHAR(29) NOT NULL,
   `from` DATETIME NOT NULL,
   `to` DATETIME NOT NULL,
@@ -503,24 +505,49 @@ CREATE TABLE `shift_request` (
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_shift_request_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shift_request`
+--
+
+LOCK TABLES `shift_request` WRITE;
+/*!40000 ALTER TABLE `shift_request` DISABLE KEYS */;
+INSERT INTO `shift_request` VALUES();
+/*!40000 ALTER TABLE `shift_request` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `shift_request_volunteer`
 --
 
 DROP TABLE IF EXISTS `shift_request_volunteer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shift_request_volunteer` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `request_id` INT NOT NULL,
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `user_id` tinyint(4) NOT NULL,
+  `request_id` tinyint(6) NOT NULL,
   `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
   `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_shift_request_volunteer_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
   CONSTRAINT `fk_shift_request_volunteer_request` FOREIGN KEY (`request_id`) REFERENCES `shift_request`(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shift_request_volunteer`
+--
+
+LOCK TABLES `shift_request_volunteer` WRITE;
+/*!40000 ALTER TABLE `shift_request_volunteer` DISABLE KEYS */;
+INSERT INTO `shift_request_volunteer` VALUES();
+/*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
