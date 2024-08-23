@@ -496,4 +496,35 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- Table structure for table `shift_request`
+
+DROP TABLE IF EXISTS `shift_request`;
+CREATE TABLE `shift_request` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `title` VARCHAR(29) NOT NULL,
+  `from` DATETIME NOT NULL,
+  `to` DATETIME NOT NULL,
+  `status` VARCHAR(12) NOT NULL DEFAULT 'waiting',
+  `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_shift_request_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table structure for table `shift_request_volunteer`
+
+DROP TABLE IF EXISTS `shift_request_volunteer`;
+CREATE TABLE `shift_request_volunteer` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `request_id` INT NOT NULL,
+  `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
+  `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_shift_request_volunteer_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
+  CONSTRAINT `fk_shift_request_volunteer_request` FOREIGN KEY (`request_id`) REFERENCES `shift_request`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Dump completed on 2022-12-29 11:52:14
