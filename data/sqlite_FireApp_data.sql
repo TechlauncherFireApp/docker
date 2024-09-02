@@ -486,6 +486,77 @@ LOCK TABLES `user_role` WRITE;
 INSERT INTO `user_role` VALUES (33,5,1,'2021-04-10 11:07:56'),(34,7,1,'2021-04-10 11:07:56'),(35,8,1,'2021-04-10 11:07:56'),(36,9,1,'2021-04-10 11:07:56'),(37,10,1,'2021-04-10 11:07:56'),(38,12,1,'2021-04-10 11:07:56'),(39,13,1,'2021-04-10 11:07:56'),(40,18,1,'2021-04-10 11:07:56'),(42,4,2,'2021-04-10 11:13:27'),(55,19,1,'2021-04-10 11:23:18'),(56,19,2,'2021-04-10 11:23:18'),(57,19,3,'2021-04-10 11:23:18'),(58,19,4,'2021-04-10 11:23:18'),(75,8,3,'2021-04-10 16:40:12'),(76,7,3,'2021-04-10 16:40:12'),(77,7,2,'2021-04-10 16:40:12'),(87,13,3,'2021-04-11 12:58:43'),(93,7,4,'2021-04-11 12:58:43'),(98,21,1,'2021-04-11 02:59:37'),(100,21,3,'2021-04-11 02:59:37'),(106,21,4,'2021-04-11 02:59:37'),(109,4,3,'2021-04-17 12:43:47'),(110,21,2,'2021-04-18 07:10:46'),(115,26,1,'2022-05-02 08:55:47'),(116,26,2,'2022-05-02 08:55:47'),(117,26,3,'2022-05-02 08:55:47'),(118,26,4,'2022-05-02 08:55:47'),(122,4,1,'2022-05-09 13:54:56'),(124,5,3,'2023-05-07 06:35:11');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `shift_request`
+--
+
+DROP TABLE IF EXISTS `shift_request`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shift_request` (
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `user_id` tinyint(6) NOT NULL,
+  `title` VARCHAR(29) NOT NULL,
+  `from` DATETIME NOT NULL,
+  `to` DATETIME NOT NULL,
+  `status` VARCHAR(12) NOT NULL DEFAULT 'waiting',
+  `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shift_request`
+--
+
+LOCK TABLES `shift_request` WRITE;
+/*!40000 ALTER TABLE `shift_request` DISABLE KEYS */;
+INSERT INTO shift_request VALUES
+(1, 5, 'Morning Shift', '2024-08-24 08:00:00', '2024-08-24 12:00:00', 'WAITING', '2024-08-23 10:00:00', '2024-08-23 09:00:00'),
+(2, 5, 'Afternoon Shift', '2024-09-24 13:00:00', '2024-09-24 17:00:00', 'WAITING', '2024-08-23 10:30:00', '2024-08-23 09:30:00'),
+(3, 5, 'Night Shift', '2024-09-24 18:00:00', '2024-09-24 22:00:00', 'UNSUBMITTED', '2024-08-23 11:00:00', '2024-08-23 10:00:00'),
+(4, 5, 'Late Night Shift', '2024-09-24 23:00:00', '2024-09-25 03:00:00', 'WAITING', '2024-08-23 11:30:00', '2024-08-23 10:30:00');
+/*!40000 ALTER TABLE `shift_request` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shift_request_volunteer`
+--
+
+DROP TABLE IF EXISTS `shift_request_volunteer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shift_request_volunteer` (
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `user_id` tinyint(6) NOT NULL,
+  `request_id` tinyint(6) NOT NULL,
+  `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
+  `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shift_request_volunteer`
+--
+
+LOCK TABLES `shift_request_volunteer` WRITE;
+/*!40000 ALTER TABLE `shift_request_volunteer` DISABLE KEYS */;
+INSERT INTO shift_request_volunteer VALUES
+(1, 6, 1, 'PENDING', '2024-08-23 11:00:00', '2024-08-23 11:00:00'),
+(2, 7, 1, 'CONFIRMED', '2024-08-23 12:30:00', '2024-08-23 11:00:00'),
+(3, 6, 2, 'PENDING', '2024-08-23 12:00:00', '2024-08-23 12:00:00'),
+(4, 8, 2, 'CONFIRMED', '2024-08-23 13:00:00', '2024-08-23 12:00:00'),
+(5, 6, 4, 'PENDING', '2024-08-23 12:30:00', '2024-08-23 12:30:00'),
+(6, 8, 4, 'CONFIRMED', '2024-08-23 13:30:00', '2024-08-23 12:30:00');
+/*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -495,5 +566,6 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
 
 -- Dump completed on 2022-12-29 11:52:14
