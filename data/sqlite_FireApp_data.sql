@@ -555,6 +555,38 @@ INSERT INTO shift_request_volunteer VALUES
 /*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `fcm_tokens`
+--
+
+DROP TABLE IF EXISTS `fcm_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fcm_tokens` (
+    `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+    `user_id` tinyint(6) NOT NULL,
+    `fcm_token` VARCHAR(255) NOT NULL,
+    `device_type` VARCHAR(50) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
+    PRIMARY KEY (`id`)
+)    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fcm_tokens`
+--
+
+LOCK TABLES `fcm_tokens` WRITE;
+/*!40000 ALTER TABLE `fcm_tokens` DISABLE KEYS */;
+INSERT INTO `fcm_tokens` VALUES
+(1, 6, 'fcmTokenExample12345', 'Android', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE),
+(2, 7, 'fcmTokenExample67890', 'iOS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE),
+(3, 8, 'fcmTokenExample54321', 'Android', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, TRUE);
+/*!40000 ALTER TABLE `fcm_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
