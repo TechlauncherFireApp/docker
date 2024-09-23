@@ -403,6 +403,7 @@ CREATE TABLE `unavailability_time` (
   `start` DATETIME DEFAULT NULL,
   `end` DATETIME DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
+  `is_shift` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY(eventId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -413,7 +414,7 @@ CREATE TABLE `unavailability_time` (
 
 LOCK TABLES `unavailability_time` WRITE;
 /*!40000 ALTER TABLE `unavailability_time` DISABLE KEYS */;
-INSERT INTO `unavailability_time` VALUES (1,6,'study',1,'2022-05-06 11:28:00','2022-05-06 20:00:00',0);
+INSERT INTO `unavailability_time` VALUES (1,6,'study',1,'2022-05-06 11:28:00','2022-05-06 20:00:00',0,FALSE);
 /*!40000 ALTER TABLE `unavailability_time` ENABLE KEYS */;
 UNLOCK TABLES;
 
