@@ -29,6 +29,6 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - google-credentials.json:/app/google-credentials.json
+      - ./google-credentials.json:/app/google-credentials.json
 volumes:
   my-db:
