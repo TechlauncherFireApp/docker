@@ -536,7 +536,7 @@ CREATE TABLE `shift_request_volunteer` (
   `id` tinyint(6) NOT NULL AUTO_INCREMENT,
   `user_id` tinyint(6) NOT NULL,
   `request_id` tinyint(6) NOT NULL,
-  `role_id` tinyint(4) NOT NULL,
+  `position_id` tinyint(4) NOT NULL,
   `status` VARCHAR(12) NOT NULL DEFAULT 'PENDING',
   `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -551,16 +551,16 @@ CREATE TABLE `shift_request_volunteer` (
 LOCK TABLES `shift_request_volunteer` WRITE;
 /*!40000 ALTER TABLE `shift_request_volunteer` DISABLE KEYS */;
 INSERT INTO shift_request_volunteer VALUES
-(1, 6, 1, 2, 'REJECTED', '2024-08-23 11:00:00', '2024-08-23 11:00:00'),
-(2, 7, 1, 3, 'ACCEPTED', '2024-08-23 12:30:00', '2024-08-23 11:00:00'),
-(3, 6, 2, 2, 'ACCEPTED', '2024-08-23 12:00:00', '2024-08-23 12:00:00'),
-(4, 8, 2, 1, 'ACCEPTED', '2024-08-23 13:00:00', '2024-08-23 12:00:00'),
-(5, 6, 4, 2, 'REJECTED', '2024-08-23 13:30:00', '2024-08-23 12:30:00'),
-(6, 6, 5, 2, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
-(7, 7, 5, 3, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
-(8, 6, 6, 2, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
-(9, 7, 6, 3, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
-(10, 8, 6, 1, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00');
+(1, 6, 1, 1, 'REJECTED', '2024-08-23 11:00:00', '2024-08-23 11:00:00'),
+(2, 7, 1, 2, 'ACCEPTED', '2024-08-23 12:30:00', '2024-08-23 11:00:00'),
+(3, 6, 2, 3, 'ACCEPTED', '2024-08-23 12:00:00', '2024-08-23 12:00:00'),
+(4, 8, 2, 4, 'ACCEPTED', '2024-08-23 13:00:00', '2024-08-23 12:00:00'),
+(5, 6, 4, 5, 'REJECTED', '2024-08-23 13:30:00', '2024-08-23 12:30:00'),
+(6, 6, 5, 6, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
+(7, 7, 5, 7, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
+(8, 6, 6, 8, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
+(9, 7, 6, 9, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
+(10, 8, 6, 10, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00');
 /*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -586,8 +586,8 @@ CREATE TABLE `shift_position` (
 LOCK TABLES `shift_position` WRITE;
 /*!40000 ALTER TABLE `shift_position` DISABLE KEYS */;
 INSERT INTO shift_position VALUES
-(1, 4, 'driver'),
-(2, 4, 'basic');
+(1, 1, 'driver'),
+(2, 1, 'basic');
 /*!40000 ALTER TABLE `shift_position` ENABLE KEYS */;
 UNLOCK TABLES;
 
