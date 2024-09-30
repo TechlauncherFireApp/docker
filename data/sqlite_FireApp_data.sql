@@ -403,6 +403,7 @@ CREATE TABLE `unavailability_time` (
   `start` DATETIME DEFAULT NULL,
   `end` DATETIME DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
+  `is_shift` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY(eventId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -413,7 +414,8 @@ CREATE TABLE `unavailability_time` (
 
 LOCK TABLES `unavailability_time` WRITE;
 /*!40000 ALTER TABLE `unavailability_time` DISABLE KEYS */;
-INSERT INTO `unavailability_time` VALUES (1,6,'study',1,'2022-05-06 11:28:00','2022-05-06 20:00:00',0);
+INSERT INTO `unavailability_time` VALUES (1,6,'study',1,'2022-05-06 11:28:00','2022-05-06 20:00:00',0,FALSE),
+(2,6,'travel',1,'2025-05-06 11:28:00','2025-05-06 20:00:00',1,FALSE);
 /*!40000 ALTER TABLE `unavailability_time` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -500,7 +502,7 @@ CREATE TABLE `shift_request` (
   `title` VARCHAR(29) NOT NULL,
   `from` DATETIME NOT NULL,
   `to` DATETIME NOT NULL,
-  `status` VARCHAR(12) NOT NULL DEFAULT 'waiting',
+  `status` VARCHAR(12) NOT NULL DEFAULT 'SUBMITTED',
   `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -514,10 +516,12 @@ CREATE TABLE `shift_request` (
 LOCK TABLES `shift_request` WRITE;
 /*!40000 ALTER TABLE `shift_request` DISABLE KEYS */;
 INSERT INTO shift_request VALUES
-(1, 5, 'Morning Shift', '2024-08-24 08:00:00', '2024-08-24 12:00:00', 'WAITING', '2024-08-23 10:00:00', '2024-08-23 09:00:00'),
-(2, 5, 'Afternoon Shift', '2024-09-24 13:00:00', '2024-09-24 17:00:00', 'WAITING', '2024-08-23 10:30:00', '2024-08-23 09:30:00'),
-(3, 5, 'Night Shift', '2024-09-24 18:00:00', '2024-09-24 22:00:00', 'UNSUBMITTED', '2024-08-23 11:00:00', '2024-08-23 10:00:00'),
-(4, 5, 'Late Night Shift', '2024-09-24 23:00:00', '2024-09-25 03:00:00', 'WAITING', '2024-08-23 11:30:00', '2024-08-23 10:30:00');
+(1, 5, 'Morning Shift', '2024-08-24 08:00:00', '2024-08-24 12:00:00', 'COMPLETED', '2024-08-23 10:00:00', '2024-08-23 09:00:00'),
+(2, 5, 'Afternoon Shift', '2024-09-24 13:00:00', '2024-09-24 17:00:00', 'COMPLETED', '2024-08-23 10:30:00', '2024-08-23 09:30:00'),
+(3, 5, 'Night Shift', '2024-09-24 18:00:00', '2024-09-24 22:00:00', 'COMPLETED', '2024-08-23 11:00:00', '2024-08-23 10:00:00'),
+(4, 5, 'Late Night Shift', '2024-09-24 23:00:00', '2024-09-25 03:00:00', 'COMPLETED', '2024-08-23 11:30:00', '2024-08-23 10:30:00'),
+(5, 5, 'New Morning Shift', '2024-11-01 08:00:00', '2024-11-01 12:00:00', 'PENDING', '2024-09-26 04:00:00', '2024-09-26 03:00:00'),
+(6, 5, 'Noon Shift', '2024-11-01 11:00:00', '2024-11-01 14:00:00', 'PENDING', '2024-09-26 04:30:00', '2024-09-26 03:30:00');
 /*!40000 ALTER TABLE `shift_request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +536,8 @@ CREATE TABLE `shift_request_volunteer` (
   `id` tinyint(6) NOT NULL AUTO_INCREMENT,
   `user_id` tinyint(6) NOT NULL,
   `request_id` tinyint(6) NOT NULL,
-  `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
+  `role_id` tinyint(4) NOT NULL,
+  `status` VARCHAR(12) NOT NULL DEFAULT 'PENDING',
   `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -546,13 +551,44 @@ CREATE TABLE `shift_request_volunteer` (
 LOCK TABLES `shift_request_volunteer` WRITE;
 /*!40000 ALTER TABLE `shift_request_volunteer` DISABLE KEYS */;
 INSERT INTO shift_request_volunteer VALUES
-(1, 6, 1, 'PENDING', '2024-08-23 11:00:00', '2024-08-23 11:00:00'),
-(2, 7, 1, 'CONFIRMED', '2024-08-23 12:30:00', '2024-08-23 11:00:00'),
-(3, 6, 2, 'PENDING', '2024-08-23 12:00:00', '2024-08-23 12:00:00'),
-(4, 8, 2, 'CONFIRMED', '2024-08-23 13:00:00', '2024-08-23 12:00:00'),
-(5, 6, 4, 'PENDING', '2024-08-23 12:30:00', '2024-08-23 12:30:00'),
-(6, 8, 4, 'CONFIRMED', '2024-08-23 13:30:00', '2024-08-23 12:30:00');
+(1, 6, 1, 2, 'REJECTED', '2024-08-23 11:00:00', '2024-08-23 11:00:00'),
+(2, 7, 1, 3, 'ACCEPTED', '2024-08-23 12:30:00', '2024-08-23 11:00:00'),
+(3, 6, 2, 2, 'ACCEPTED', '2024-08-23 12:00:00', '2024-08-23 12:00:00'),
+(4, 8, 2, 1, 'ACCEPTED', '2024-08-23 13:00:00', '2024-08-23 12:00:00'),
+(5, 6, 4, 2, 'REJECTED', '2024-08-23 13:30:00', '2024-08-23 12:30:00'),
+(6, 6, 5, 2, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
+(7, 7, 5, 3, 'PENDING', '2024-09-26 05:00:00', '2024-09-26 05:00:00'),
+(8, 6, 6, 2, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
+(9, 7, 6, 3, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00'),
+(10, 8, 6, 1, 'PENDING', '2024-09-26 06:00:00', '2024-09-26 06:00:00');
 /*!40000 ALTER TABLE `shift_request_volunteer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shift_position`
+--
+
+DROP TABLE IF EXISTS `shift_position`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shift_position` (
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `shift_id` tinyint(6) NOT NULL,
+  `role_code` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shift_position`
+--
+
+LOCK TABLES `shift_position` WRITE;
+/*!40000 ALTER TABLE `shift_position` DISABLE KEYS */;
+INSERT INTO shift_position VALUES
+(1, 4, 'driver'),
+(2, 4, 'basic');
+/*!40000 ALTER TABLE `shift_position` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
