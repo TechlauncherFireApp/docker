@@ -536,7 +536,7 @@ CREATE TABLE `shift_request_volunteer` (
   `id` tinyint(6) NOT NULL AUTO_INCREMENT,
   `user_id` tinyint(6) NOT NULL,
   `request_id` tinyint(6) NOT NULL,
-  `position_id` tinyint(4) NOT NULL,
+  `position_id` tinyint(6) NOT NULL,
   `status` VARCHAR(12) NOT NULL DEFAULT 'PENDING',
   `last_update_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
